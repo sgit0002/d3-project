@@ -108,6 +108,7 @@
             .attr("y", height / 1.2)
             
             .text(function(d) {return d.Risk})
+            .attr("transform", "translate(0,0)")
         
 
         
