@@ -2,7 +2,7 @@
 (function() {
     
     var width = 1024,
-    height = 800;
+    height = 500;
 
     var data = ["Alcohol use", "Amphetamine use"]
 
@@ -22,20 +22,20 @@
     var color = d3.scaleOrdinal(d3.schemeCategory20)
     
     var forceXSep = d3.forceX(function(d){
-        if (d.Risk === 'Alcohol use'){
+        if (d.Risk === 'Alcohol'){
             return 180
-        } else if (d.Risk === 'Amphetamine use') {
+        } else if (d.Risk === 'Amphetamine') {
             return 330
-        } else if (d.Risk === 'Cocaine use') {
+        } else if (d.Risk === 'Cocaine') {
             return 480
-        } else if (d.Risk === 'Illicit drug use') {
+        } else if (d.Risk === 'Illicit drug') {
             return 630
-        } else if (d.Risk === 'Intimate partner violence') {
+        } else if (d.Risk === 'Partner violence') {
             return 750
         }  else {
-            return 830
+            return 900
         }
-    }).strength(0.025)
+    }).strength(0.03)
 
     var forceXComb = d3.forceX(function(d){
         return (width / 2)
@@ -89,25 +89,25 @@
         .append("text");
 
         texts.attr("x", function(d){
-            if (d.Risk === 'Alcohol use'){
-                return 180
-            } else if (d.Risk === 'Amphetamine use') {
-                return 330
-            } else if (d.Risk === 'Cocaine use') {
-                return 480
-            } else if (d.Risk === 'Illicit drug use') {
-                return 630
-            } else if (d.Risk === 'Intimate partner violence') {
-                return 750
+            if (d.Risk === 'Alcohol'){
+                return 150
+            } else if (d.Risk === 'Amphetamine') {
+                return 280
+            } else if (d.Risk === 'Cocaine') {
+                return 450
+            } else if (d.Risk === 'Illicit drug') {
+                return 590
+            } else if (d.Risk === 'Partner violence') {
+                return 710
             }  else {
-                return 830
+                return 880
             }
         })
             .data(datapoints)
             
             .attr("y", height / 1.2)
             
-            .text(function(d) {return d.Risk.split(' ')[0]})
+            .text(function(d) {return d.Risk})
         
 
         
