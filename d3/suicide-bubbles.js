@@ -1,7 +1,7 @@
 
 (function() {
     
-    var width = 2000,
+    var width = 1024,
     height = 800;
 
     var data = ["Alcohol use", "Amphetamine use"]
@@ -23,26 +23,26 @@
     
     var forceXSep = d3.forceX(function(d){
         if (d.Risk === 'Alcohol use'){
-            return 250
+            return 180
         } else if (d.Risk === 'Amphetamine use') {
-            return 500
+            return 330
         } else if (d.Risk === 'Cocaine use') {
-            return 750
+            return 480
         } else if (d.Risk === 'Illicit drug use') {
-            return 1000
+            return 630
         } else if (d.Risk === 'Intimate partner violence') {
-            return 1250
+            return 750
         }  else {
-            return 1500
+            return 830
         }
-    }).strength(0.01)
+    }).strength(0.025)
 
     var forceXComb = d3.forceX(function(d){
         return (width / 2)
     }).strength(0.01)
 
     var forceCollide = d3.forceCollide(function(d){
-        return radiusScale(d.Self)
+        return radiusScale(d.Self/2.1)
     })
 
     var forceYComb = d3.forceY(function(d){
@@ -70,7 +70,7 @@
         .enter().append("circle")
         .attr("class", "circles")
         .attr("r", function(d){
-            return radiusScale(d.Self)
+            return radiusScale(d.Self/2.1)
         })
         
         .attr("fill", function(d) { return color(d.Risk); })
@@ -90,23 +90,24 @@
 
         texts.attr("x", function(d){
             if (d.Risk === 'Alcohol use'){
-                return 200
+                return 180
             } else if (d.Risk === 'Amphetamine use') {
-                return 450
+                return 330
             } else if (d.Risk === 'Cocaine use') {
-                return 700
+                return 480
             } else if (d.Risk === 'Illicit drug use') {
-                return 950
+                return 630
             } else if (d.Risk === 'Intimate partner violence') {
-                return 1200
+                return 750
             }  else {
-                return 1450
+                return 830
             }
         })
             .data(datapoints)
+            
             .attr("y", height / 1.2)
             
-            .text(function(d) {return d.Risk})
+            .text(function(d) {return d.Risk.split(' ')[0]})
         
 
         
@@ -116,14 +117,14 @@
     d3.select("#risk").on('click', function(){
         simulation
         .force("x", forceXSep)
-        .alphaTarget(0.5)
+        .alphaTarget(0.25)
         .restart()
     })
 
     d3.select("#combine").on('click', function(){
         simulation
         .force("x", forceXComb)
-        .alphaTarget(0.3)
+        .alphaTarget(0.2)
         .restart()
         
     })
