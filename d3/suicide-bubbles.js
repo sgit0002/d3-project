@@ -69,7 +69,9 @@
         .data(datapoints)
         .enter().append("circle")
         .attr("class", "circles")
-        .attr("r", 10)
+        .attr("r", function(d){
+            return radiusScale(d.Self)
+        })
         
         .attr("fill", function(d) { return color(d.Risk); })
         
